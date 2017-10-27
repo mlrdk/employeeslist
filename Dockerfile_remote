@@ -37,8 +37,6 @@ RUN echo "$ssh_prv_key" > /root/.ssh/id_rsa && \
     chmod 600 /root/.ssh/id_rsa.pub
 
 
-# Remove SSH keys
-#RUN rm -rf /root/.ssh/
 
 
 #Giting the needed files
@@ -57,6 +55,6 @@ ENTRYPOINT ["mvn","clean","install"]
 
 FROM openjdk:8-jdk-alpine
 WORKDIR /root/
-COPY --from=BUILD_IMAGE /root/app/Employees.jar .
+COPY --from=BUILD_IMAGE /root/app/target/Employees.jar .
 EXPOSE 8080
 CMD ["java","-jar","Employees.jar"]

@@ -1,4 +1,4 @@
-FROM openjdk:8-jdk-alpine AS BUILD_IMAGE
+FROM MAVEN: AS BUILD_IMAGE
 
 RUN apk add --no-cache curl tar bash
 
@@ -16,25 +16,30 @@ RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
   && rm -f /tmp/apache-maven.tar.gz \
   && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
 
-ENV MAVEN_HOME /usr/share/maven
-ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
+ENV MAVEN_HOME /usr/share/maven \
+    PATH=/usr/share/maven/bin:$PATH \
+    MAVEN_CONFIG "$USER_HOME_DIR/.m2"
 
 VOLUME "$USER_HOME_DIR/.m2"
+
 
 #Copying the needed files
 
 WORKDIR $APP_HOME
-COPY pom.xml .
-COPY target/Employees.jar .
+COPY . ./employee
+WORKDIR employee
+COPY . /source
+#BINDOVIATI SOURCE
 
-#Running Maven
+RUN mvn go offline!!!!!
 
-ENTRYPOINT ["mvn","clean","install"]
+
+
 
 #Runing the app
 
 FROM openjdk:8-jdk-alpine
 WORKDIR /root/
-COPY --from=BUILD_IMAGE /root/app/Employees.jar .
+COPY --from=BUILD_IMAGE /root/app/employee/target/employees.jar .
 EXPOSE 8080
 CMD ["java","-jar","Employees.jar"]
