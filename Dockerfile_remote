@@ -58,3 +58,13 @@ WORKDIR /root/
 COPY --from=BUILD_IMAGE /root/app/target/Employees.jar .
 EXPOSE 8080
 CMD ["java","-jar","Employees.jar"]
+CMD java - jar Employees.jar #RAZLIKA IZMEDJU OVA DVA! 
+
+#ENTRYPOINT ["java"]
+#
+#vs.
+#
+#ENTRYPOINT java
+
+# MAVEN GIT IMAGE I MAVEN GIT m2
+#DOCKER DOCS COMMAND VS ENTRYPOINT ---
