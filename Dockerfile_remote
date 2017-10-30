@@ -58,7 +58,7 @@ WORKDIR /root/
 COPY --from=BUILD_IMAGE /root/app/target/Employees.jar .
 EXPOSE 8080
 CMD ["java","-jar","Employees.jar"]
-CMD java - jar Employees.jar #RAZLIKA IZMEDJU OVA DVA! 
+CMD java - jar Employees.jar #RAZLIKA IZMEDJU OVA DVA!
 
 #ENTRYPOINT ["java"]
 #

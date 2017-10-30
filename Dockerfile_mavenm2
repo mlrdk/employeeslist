@@ -1,0 +1,33 @@
+FROM mkubatovic/maven:5.2.0
+
+
+
+#Installing Maven and setting up ARGs
+#ARG APP_HOME=/root/app/
+#ARG USER_HOME_DIR="/root"
+
+
+#Copying the needed files
+#
+#WORKDIR $APP_HOME
+COPY . ./sources/
+#WORKDIR $APP_HOME/employee/
+#
+
+RUN cd /sources \
+  && mvn dependency:go-offline \
+  && cd / \
+  && rm -rf /sources
+
+
+
+
+
+#Runing the app
+
+#FROM openjdk:8-jdk-alpine
+#WORKDIR /root/
+#COPY --from=BUILD_IMAGE /root/app/employee/target/employees.jar .
+#EXPOSE 8080
+#CMD ["java","-jar","employees.jar"]
+
