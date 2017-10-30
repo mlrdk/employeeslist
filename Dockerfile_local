@@ -9,4 +9,4 @@ FROM openjdk:8-jdk-alpine
 
 COPY --from=BUILD_IMAGE employees.jar .
 EXPOSE 8080
-CMD java -jar employees.jar
+ENTRYPOINT java -jar employees.jar

@@ -4,13 +4,19 @@ RUN apk add --no-cache bash git openssh-server openssh-client
 
 #SSH SETUP
 
-RUN mkdir -p /root/.ssh && \
+RUN mkdir  /root/.ssh && \
     chmod 0700 /root/.ssh && \
     ssh-keyscan -t rsa github.com > /root/.ssh/known_hosts
 
-COPY ./sshkeys/ /root/.ssh/
+COPY sshkeys ./root/.ssh
 
 RUN chmod 600 /root/.ssh/id_rsa && \
     chmod 600 /root/.ssh/id_rsa.pub
 
-RUN git clone
+RUN mkdir /sources \
+    && cd /sources \
+    && git clone git@github.com:mlrdk/employeeslist.git . \
+    && mvn dependency:go-offline \
+    && cd / \
+    && rm -rf /sources \
+    && rm -rf /root/.ssh
